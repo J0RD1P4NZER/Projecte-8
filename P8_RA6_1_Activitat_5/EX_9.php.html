@@ -1,0 +1,63 @@
+<?php
+$conexion = new mysqli("localhost", "usuari", "contrasenya", "biblioteca");
+
+if ($conexion->connect_error) {
+    die("Error de connexió: " . $conexion->connect_error);
+}
+
+$resultat = $conexion->query("SELECT * FROM llibres");
+
+echo "<table border='1'><tr><th>ID</th><th>Títol</th><th>Autor</th><th>Any</th><th>Accions</th></tr>";
+while ($fila = $resultat->fetch_assoc()) {
+    echo "<tr>
+            <td>{$fila['id']}</td>
+            <td>{$fila['titol']}</td>
+            <td>{$fila['autor']}</td>
+            <td>{$fila['any']}</td>
+            <td><a href='editar_llibre.php?id={$fila['id']}'>Editar</a></td>
+          </tr>";
+}
+echo "</table>";
+
+$conexion->close();
+?>
+
+I la pàgina editar_llibre.php:
+
+<?php
+$conexion = new mysqli("localhost", "usuari", "contrasenya", "biblioteca");
+
+if ($conexion->connect_error) {
+    die("Error de connexió: " . $conexion->connect_error);
+}
+
+$id = $_GET["id"];
+$stmt = $conexion->prepare("SELECT * FROM llibres WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$resultat = $stmt->get_result();
+$llibre = $resultat->fetch_assoc();
+
+$stmt->close();
+$conexion->close();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Llibre</title>
+</head>
+<body>
+    <form method="POST" action="actualitzar_llibre.php">
+        <input type="hidden" name="id" value="<?php echo $llibre['id']; ?>">
+        <label>Títol:</label>
+        <input type="text" name="titol" value="<?php echo $llibre['titol']; ?>">
+        <label>Autor:</label>
+        <input type="text" name="autor" value="<?php echo $llibre['autor']; ?>">
+        <label>Any:</label>
+        <input type="number" name="any" value="<?php echo $llibre['any']; ?>">
+        <button type="submit">Guardar Canvis</button>
+    </form>
+</body>
+</html>
+

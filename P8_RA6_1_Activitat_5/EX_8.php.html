@@ -1,0 +1,40 @@
+<?php
+function factorial($num) {
+    if ($num < 0) {
+        return "El número ha de ser positiu.";
+    }
+
+    $resultat = 1;
+    for ($i = 1; $i <= $num; $i++) {
+        $resultat *= $i;
+    }
+    return $resultat;
+}
+
+// Captura de l'entrada del formulari
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $num = (int) $_POST["num"];
+    if ($num >= 0) {
+        echo "<p>El factorial de $num és " . factorial($num) . "</p>";
+    } else {
+        echo "<p style='color: red;'>Introdueix un número positiu.</p>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calcula el Factorial</title>
+</head>
+<body>
+    <h2>Calcula el Factorial d'un Número</h2>
+    <form method="POST">
+        <label>Introdueix un número:</label>
+        <input type="number" name="num" min="0">
+        <button type="submit">Calcular</button>
+    </form>
+</body>
+</html>
+
+
