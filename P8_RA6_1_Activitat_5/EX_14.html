@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Llista de Llibres</title>
+    <title>Llista de Clients</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,6 +34,13 @@
             background-color: #007bff;
             color: white;
         }
+        .edit-link {
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
         .delete-link {
             text-decoration: none;
             background-color: #dc3545;
@@ -46,28 +53,25 @@
 <body>
 
 <div class="container">
-    <h2>Catàleg de la Biblioteca</h2>
+    <h2>Llista de Clients</h2>
 
     <?php include 'database.php'; ?>
 
     <table>
         <tr>
             <th>ID</th>
-            <th>Títol</th>
-            <th>Autor</th>
-            <th>Any</th>
+            <th>Nom</th>
+            <th>Email</th>
             <th>Accions</th>
         </tr>
-        <?php foreach ($llibres_data as $llibre): ?>
+        <?php foreach ($clients_data as $client): ?>
             <tr>
-                <td><?= $llibre['id'] ?></td>
-                <td><?= $llibre['titol'] ?></td>
-                <td><?= $llibre['autor'] ?></td>
-                <td><?= $llibre['any'] ?></td>
+                <td><?= $client['id'] ?></td>
+                <td><?= $client['nom'] ?></td>
+                <td><?= $client['email'] ?></td>
                 <td>
-                    <a class="delete-link" href="eliminar_llibre.php?id=<?= $llibre['id'] ?>" onclick="return confirm('Segur que vols eliminar aquest llibre?');">
-                        Eliminar
-                    </a>
+                    <a class="edit-link" href="editar_client.php?id=<?= $client['id'] ?>">Editar</a> | 
+                    <a class="delete-link" href="eliminar_client.php?id=<?= $client['id'] ?>" onclick="return confirm('Segur que vols eliminar aquest client?');">Eliminar</a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -76,3 +80,4 @@
 
 </body>
 </html>
+

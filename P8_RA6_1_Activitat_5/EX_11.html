@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Llibre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Editar Llibre</h2>
+
+    <form method="POST" action="actualitzar_llibre.php">
+        <input type="hidden" name="id" value="1"> <!-- ID del llibre a modificar -->
+
+        <label>Títol:</label>
+        <input type="text" name="titol" value="El petit príncep" required>
+        
+        <label>Autor:</label>
+        <input type="text" name="autor" value="Antoine de Saint-Exupéry" required>
+        
+        <label>Any:</label>
+        <input type="number" name="any" value="1943" required>
+        
+        <button type="submit">Actualitzar</button>
+    </form>
+</div>
+
+</body>
+</html>
+

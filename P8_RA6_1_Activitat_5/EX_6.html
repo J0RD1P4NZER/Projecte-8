@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerca de Llibres per Autor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cerca de Llibres per Autor</h2>
+
+    <form method="POST" action="index.php">
+        <label>Autor:</label>
+        <input type="text" name="autor" value="Antoine de Saint-Exupéry" required>
+        <button type="submit">Cercar</button>
+    </form>
+
+    <?php include 'database.php'; ?>
+
+    <?php if (!empty($missatge_error)) echo "<p class='error'>$missatge_error</p>"; ?>
+
+    <?php if (!empty($llibres_data)): ?>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Títol</th>
+                <th>Autor</th>
+                <th>Any</th>
+            </tr>
+            <?php foreach ($llibres_data as $llibre): ?>
+                <tr>
+                    <td><?= $llibre['id'] ?></td>
+                    <td><?= $llibre['titol'] ?></td>
+                    <td><?= $llibre['autor'] ?></td>
+                    <td><?= $llibre['any'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>
+
+</body>
+</html>
+
